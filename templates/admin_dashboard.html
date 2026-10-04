@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard - Online Voting System{% endblock %}
+{% block content %}
+<h1>Admin Dashboard</h1>
+
+<div class="grid">
+    <div class="card">
+        <h2>Registered Voters</h2>
+        <p>{{ total_voters }}</p>
+    </div>
+    <div class="card">
+        <h2>Votes Cast</h2>
+        <p>{{ total_votes }}</p>
+    </div>
+    <div class="card">
+        <h2>Candidates</h2>
+        <p>{{ total_candidates }}</p>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Actions</h2>
+    <div class="actions">
+        <a class="btn" href="{{ url_for('admin_candidates') }}">Manage Candidates</a>
+        <a class="btn btn-secondary" href="{{ url_for('admin_add_candidate') }}">Add Candidate</a>
+        <a class="btn btn-secondary" href="{{ url_for('admin_results') }}">View Results</a>
+    </div>
+</div>
+{% endblock %}

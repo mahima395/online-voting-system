@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Register - Online Voting System{% endblock %}
+{% block content %}
+<div class="card narrow">
+    <h1>Voter Registration</h1>
+    <form method="post" action="{{ url_for('register') }}" id="register-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-group">
+            <label for="full_name">Full Name</label>
+            <input type="text" id="full_name" name="full_name" maxlength="100" value="{{ form.get('full_name', '') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" maxlength="30" value="{{ form.get('username', '') }}" required>
+            <div class="hint">3 to 30 characters: letters, numbers and underscores.</div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" maxlength="100" value="{{ form.get('email', '') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" minlength="8" required>
+            <div class="hint">At least 8 characters.</div>
+        </div>
+        <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" minlength="8" required>
+        </div>
+        <button class="btn" type="submit">Register</button>
+    </form>
+    <p class="muted">Already registered? <a href="{{ url_for('login') }}">Log in</a></p>
+</div>
+{% endblock %}

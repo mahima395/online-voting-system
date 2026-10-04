@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Manage Candidates - Online Voting System{% endblock %}
+{% block content %}
+<h1>Manage Candidates</h1>
+<p><a class="btn" href="{{ url_for('admin_add_candidate') }}">Add Candidate</a></p>
+
+{% if candidates %}
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr><th>ID</th><th>Name</th><th>Party</th><th>Description</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+            {% for candidate in candidates %}
+            <tr>
+                <td>{{ candidate.id }}</td>
+                <td>{{ candidate.name }}</td>
+                <td>{{ candidate.party or '-' }}</td>
+                <td>{{ candidate.description or '-' }}</td>
+                <td>
+                    <a class="btn btn-secondary btn-small" href="{{ url_for('admin_edit_candidate', candidate_id=candidate.id) }}">Edit</a>
+                    <form class="inline-form" method="post" action="{{ url_for('admin_delete_candidate', candidate_id=candidate.id) }}" data-confirm="Delete candidate {{ candidate.name }}?">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button class="btn btn-danger btn-small" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+    <div class="card"><p>No candidates have been added yet.</p></div>
+{% endif %}
+{% endblock %}

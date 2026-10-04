@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Online Voting System{% endblock %}
+{% block content %}
+<h1>Welcome, {{ user.full_name }}</h1>
+
+<div class="grid">
+    <div class="card">
+        <h2>Voting Status</h2>
+        {% if vote %}
+            <p class="status status-done">You have already voted.</p>
+            <p class="muted">Recorded on {{ vote.voted_at.strftime('%d %b %Y, %I:%M %p') }}</p>
+        {% else %}
+            <p class="status status-pending">You have not voted yet.</p>
+            <a class="btn" href="{{ url_for('vote') }}">Go to Voting Page</a>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h2>Election Information</h2>
+        <p>Candidates available: {{ candidate_count }}</p>
+        <p class="muted">Each voter can cast only one vote. A vote cannot be changed after it is submitted.</p>
+        <a href="{{ url_for('candidate_list') }}">View candidates</a>
+    </div>
+
+    <div class="card">
+        <h2>Your Account</h2>
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Voting Results - Online Voting System{% endblock %}
+{% block content %}
+<h1>Voting Results</h1>
+
+<div class="grid">
+    <div class="card"><h2>Registered Voters</h2><p>{{ total_voters }}</p></div>
+    <div class="card"><h2>Total Votes Cast</h2><p>{{ total_votes }}</p></div>
+    <div class="card"><h2>Voters Yet to Vote</h2><p>{{ not_voted }}</p></div>
+</div>
+
+{% if results %}
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr><th>Candidate</th><th>Party</th><th>Votes</th><th>Percentage</th><th>Share</th></tr>
+        </thead>
+        <tbody>
+            {% for row in results %}
+            <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.party or '-' }}</td>
+                <td>{{ row.vote_count }}</td>
+                <td>{{ row.percent }}%</td>
+                <td><div class="bar"><div class="bar-fill" style="width: {{ row.percent }}%"></div></div></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr><th colspan="2">Total</th><th>{{ total_votes }}</th><th colspan="2"></th></tr>
+        </tfoot>
+    </table>
+</div>
+{% else %}
+    <div class="card"><p>No candidates have been added yet, so there are no results.</p></div>
+{% endif %}
+{% endblock %}

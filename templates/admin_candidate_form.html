@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ heading }} - Online Voting System{% endblock %}
+{% block content %}
+<div class="card narrow">
+    <h1>{{ heading }}</h1>
+    <form method="post" action="{{ form_action }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-group">
+            <label for="name">Candidate Name</label>
+            <input type="text" id="name" name="name" maxlength="100" value="{{ form.name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="party">Party (optional)</label>
+            <input type="text" id="party" name="party" maxlength="100" value="{{ form.party }}">
+        </div>
+        <div class="form-group">
+            <label for="description">Description (optional)</label>
+            <textarea id="description" name="description" maxlength="500">{{ form.description }}</textarea>
+            <div class="hint">Up to 500 characters.</div>
+        </div>
+        <button class="btn" type="submit">Save</button>
+        <a class="btn btn-secondary" href="{{ url_for('admin_candidates') }}">Cancel</a>
+    </form>
+</div>
+{% endblock %}

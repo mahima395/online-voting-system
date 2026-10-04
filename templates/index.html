@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Home - Online Voting System{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>Online Voting System</h1>
+    <p>This web application lets registered voters log in, view the candidates and cast one vote. An administrator manages the candidates and views the results.</p>
+    <div class="actions">
+        {% if session.get('user_id') %}
+            <a class="btn" href="{{ url_for('dashboard') }}">Go to Dashboard</a>
+        {% elif session.get('admin_id') %}
+            <a class="btn" href="{{ url_for('admin_dashboard') }}">Go to Admin Dashboard</a>
+        {% else %}
+            <a class="btn" href="{{ url_for('login') }}">Voter Login</a>
+            <a class="btn btn-secondary" href="{{ url_for('register') }}">Register as Voter</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card">
+    <h2>How voting works</h2>
+    <ol>
+        <li>Register with your name, username, email and a password.</li>
+        <li>Log in and open the voting page.</li>
+        <li>Select one candidate and confirm your choice.</li>
+        <li>Your vote is stored once. A second vote is not accepted.</li>
+    </ol>
+</div>
+{% endblock %}

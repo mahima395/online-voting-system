@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Candidates - Online Voting System{% endblock %}
+{% block content %}
+<h1>Candidates</h1>
+
+{% if candidates %}
+    <div class="grid">
+        {% for candidate in candidates %}
+        <div class="card">
+            <h2>{{ candidate.name }}</h2>
+            <p class="muted">Party: {{ candidate.party or 'Not stated' }}</p>
+            <p>{{ candidate.description or 'No description provided.' }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% if vote %}
+        <p class="muted">You have already voted.</p>
+    {% else %}
+        <a class="btn" href="{{ url_for('vote') }}">Go to Voting Page</a>
+    {% endif %}
+{% else %}
+    <div class="card"><p>No candidates have been added yet. Please check again later.</p></div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} - Online Voting System{% endblock %}
+{% block content %}
+<div class="card narrow">
+    <h1>{{ title }}</h1>
+    <p>{{ message }}</p>
+    <a class="btn btn-secondary" href="{{ url_for('index') }}">Back to Home</a>
+</div>
+{% endblock %}

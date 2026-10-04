@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Cast Vote - Online Voting System{% endblock %}
+{% block content %}
+<h1>Cast Your Vote</h1>
+
+{% if vote %}
+    <div class="card">
+        <p class="status status-done">You have already voted.</p>
+        <p>Your vote was recorded on {{ vote.voted_at.strftime('%d %b %Y, %I:%M %p') }}. Each voter can vote only once, so the voting form is not available.</p>
+        <a class="btn btn-secondary" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    </div>
+{% elif not candidates %}
+    <div class="card">
+        <p>No candidates are available for voting right now. Please check again later.</p>
+        <a class="btn btn-secondary" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    </div>
+{% else %}
+    <div class="card">
+        <p>Select one candidate and press Cast Vote. You will be asked to confirm. A vote cannot be changed later.</p>
+        <form method="post" action="{{ url_for('vote') }}" id="vote-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            {% for candidate in candidates %}
+            <label class="candidate-option">
+                <input type="radio" name="candidate_id" value="{{ candidate.id }}" data-name="{{ candidate.name }}" required>
+                <span>
+                    <strong>{{ candidate.name }}</strong>
+                    {% if candidate.party %}<span class="muted"> ({{ candidate.party }})</span>{% endif %}
+                    {% if candidate.description %}<br><span class="muted">{{ candidate.description }}</span>{% endif %}
+                </span>
+            </label>
+            {% endfor %}
+            <button class="btn" type="submit">Cast Vote</button>
+        </form>
+    </div>
+{% endif %}
+{% endblock %}
